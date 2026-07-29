@@ -1,6 +1,6 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
 
-const version = "20260730-9";
+const version = "20260730-10";
 const laLigaCover = "https://upload.wikimedia.org/wikipedia/commons/4/46/Regulations_of_the_La_Liga_Filipina_handwritten_by_Jose_Rizal.jpg";
 
 async function read(path) {
@@ -31,11 +31,12 @@ html = html.replace(/<script defer src="profile-access\.js(?:\?v=[^"]*)?"><\/scr
 html = html.replace(/<script defer src="image-fixes\.js(?:\?v=[^"]*)?"><\/script>/g, "");
 html = html.replace(/<script defer src="social-upgrades\.js(?:\?v=[^"]*)?"><\/script>/g, "");
 html = html.replace(/<script defer src="linkedin-languages\.js(?:\?v=[^"]*)?"><\/script>/g, "");
+html = html.replace(/<script defer src="account-personality\.js(?:\?v=[^"]*)?"><\/script>/g, "");
 html = html.replace(/<script defer src="facebook-cover-upload\.js(?:\?v=[^"]*)?"><\/script>/g, "");
 html = html.replace("</head>", `<link rel="stylesheet" href="fixes.css?v=${version}"/></head>`);
 html = html.replace(
   "</body>",
-  `<script defer src="profile-access.js?v=${version}"></script><script defer src="image-fixes.js?v=${version}"></script><script defer src="social-upgrades.js?v=${version}"></script><script defer src="linkedin-languages.js?v=${version}"></script></body>`,
+  `<script defer src="profile-access.js?v=${version}"></script><script defer src="image-fixes.js?v=${version}"></script><script defer src="social-upgrades.js?v=${version}"></script><script defer src="linkedin-languages.js?v=${version}"></script><script defer src="account-personality.js?v=${version}"></script></body>`,
 );
 await write("../docs/index.html", html);
 
@@ -78,4 +79,4 @@ try {
   if (error?.code !== "ENOENT") throw error;
 }
 
-console.log(`Patched GitHub Pages with La Liga Filipina cover and LinkedIn languages version ${version}.`);
+console.log(`Patched GitHub Pages with separate personal Facebook and professional LinkedIn accounts, version ${version}.`);
