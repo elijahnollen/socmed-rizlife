@@ -16,18 +16,18 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Patch generated GitHub Pages HTML
+      - name: Patch generated GitHub Pages assets
         run: node scripts/patch-pages.mjs
 
       - name: Commit patched page
         shell: bash
         run: |
-          if git diff --quiet -- docs/index.html; then
-            echo "docs/index.html is already patched."
+          if git diff --quiet -- docs/index.html docs/fixes.css docs/profile-access.js docs/social-upgrades.js docs/facebook-cover-upload.js app/fixes.css; then
+            echo "GitHub Pages assets are already patched."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html
-          git commit -m "Fix GitHub Pages profile interactivity"
+          git add -A docs/index.html docs/fixes.css docs/profile-access.js docs/social-upgrades.js docs/facebook-cover-upload.js app/fixes.css
+          git commit -m "Stabilize Facebook cover photo"
           git push
