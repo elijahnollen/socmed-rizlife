@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 
+// Keep the generated static page compatible with repository-based GitHub Pages.
 const indexPath = new URL("../docs/index.html", import.meta.url);
 let html = await readFile(indexPath, "utf8");
 
