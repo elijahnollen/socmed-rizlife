@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./fixes.css";
 
 export const metadata: Metadata = {
   title: "José Rizal | Personal & Professional Social Profiles",
