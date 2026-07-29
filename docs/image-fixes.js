@@ -1,24 +1,27 @@
 (() => {
   const siteAsset = (path) => new URL(path.replace(/^\/+/, ""), document.baseURI).href;
 
+  /* Paciano intentionally uses initials: the previous external image was a
+     monument, not a verified portrait. The remaining entries use portrait files. */
   const portraitFiles = [
-    "General Paciano Rizal.jpg",
-    "Ferdinand Blumentritt.jpg",
+    null,
+    "Ferdinand Blumentritt - btv1b84500221 (1 of 2).jpg",
     "Marcelo Hilario del Pilar y Gatmaitán (1850-1896) portrait.jpg",
     "Mariano Ponce.jpg",
     "Graciano lopez jaena PG.jpg",
     "Máximo Viola.jpg",
   ];
 
-  const portraitUrls = portraitFiles.map(
-    (file) => `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}?width=240`,
+  const portraitUrls = portraitFiles.map((file) =>
+    file
+      ? `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}?width=240`
+      : null,
   );
 
   const portraitStatus = new Map();
 
   function injectImageStyles() {
     if (document.getElementById("rizal-image-fix-styles")) return;
-
     const style = document.createElement("style");
     style.id = "rizal-image-fix-styles";
     style.textContent = `
@@ -26,35 +29,30 @@
       .friend-grid .avatar,
       .large-friend-grid .avatar,
       .li-person .avatar {
-        color: #fff !important;
-        text-indent: 0 !important;
-        background-image: none !important;
-        background-color: #697386 !important;
-        background-position: center top !important;
-        background-repeat: no-repeat !important;
-        background-size: cover !important;
+        color:#fff!important;
+        text-indent:0!important;
+        background-image:none!important;
+        background-color:#697386!important;
+        background-position:center top!important;
+        background-repeat:no-repeat!important;
+        background-size:cover!important;
       }
-
       .friend-stack .avatar.portrait-loaded,
       .friend-grid .avatar.portrait-loaded,
       .large-friend-grid .avatar.portrait-loaded,
       .li-person .avatar.portrait-loaded {
-        color: transparent !important;
-        text-indent: -9999px !important;
+        color:transparent!important;
+        text-indent:-9999px!important;
       }
-
       .friend-stack .avatar.portrait-failed,
       .friend-grid .avatar.portrait-failed,
       .large-friend-grid .avatar.portrait-failed,
       .li-person .avatar.portrait-failed {
-        color: #fff !important;
-        text-indent: 0 !important;
-        background-image: linear-gradient(135deg, #667085, #344054) !important;
+        color:#fff!important;
+        text-indent:0!important;
+        background-image:linear-gradient(135deg,#667085,#344054)!important;
       }
-
-      img.image-loading-fallback {
-        background: #e4e6eb;
-      }
+      img.image-loading-fallback{background:#e4e6eb}
     `;
     document.head.append(style);
   }
@@ -69,9 +67,7 @@
       } else {
         try {
           const parsed = new URL(image.src, document.baseURI);
-          if (parsed.pathname.startsWith("/images/")) {
-            localPath = parsed.pathname.slice(1);
-          }
+          if (parsed.pathname.startsWith("/images/")) localPath = parsed.pathname.slice(1);
         } catch {
           return;
         }
@@ -84,8 +80,8 @@
         image.addEventListener("error", () => {
           if (image.dataset.localFallbackUsed) return;
           image.dataset.localFallbackUsed = "true";
-
           const current = image.getAttribute("src") || "";
+
           if (/jose-rizal-portrait/i.test(current)) {
             image.src = siteAsset("images/jose-rizal-personal.jpg");
             return;
@@ -96,14 +92,14 @@
             return;
           }
 
-          const media = image.closest("figure.post-media");
-          if (media) media.remove();
+          image.closest("figure.post-media")?.remove();
         });
       }
     });
   }
 
   function preloadPortrait(index) {
+    if (!portraitUrls[index]) return Promise.resolve({ ok: false, url: null });
     if (portraitStatus.has(index)) return portraitStatus.get(index);
 
     const promise = new Promise((resolve) => {
@@ -129,35 +125,29 @@
 
       preloadPortrait(portraitIndex).then(({ ok, url }) => {
         if (!document.contains(avatar)) return;
-        if (ok) {
+        if (ok && url) {
           avatar.classList.add("portrait-loaded");
-          avatar.classList.remove("portrait-failed");
           avatar.style.setProperty("background-image", `url("${url}")`, "important");
         } else {
           avatar.classList.add("portrait-failed");
-          avatar.classList.remove("portrait-loaded");
           avatar.style.removeProperty("background-image");
         }
       });
     });
   }
 
-  function applyFriendPortraits() {
+  function refreshImages() {
+    fixLocalImagePaths();
     applyPortraitGroup(".friend-stack .avatar");
     applyPortraitGroup(".friend-grid .avatar");
     applyPortraitGroup(".large-friend-grid .avatar");
     applyPortraitGroup(".li-person .avatar");
   }
 
-  function refreshImages() {
-    fixLocalImagePaths();
-    applyFriendPortraits();
-  }
-
   function initialize() {
     injectImageStyles();
     refreshImages();
-    [100, 350, 800, 1500].forEach((delay) => setTimeout(refreshImages, delay));
+    [100,350,800,1500].forEach((delay) => setTimeout(refreshImages, delay));
 
     let queued = false;
     const observer = new MutationObserver(() => {
@@ -168,11 +158,11 @@
         refreshImages();
       });
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList:true, subtree:true });
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initialize, { once: true });
+    document.addEventListener("DOMContentLoaded", initialize, { once:true });
   } else {
     initialize();
   }
