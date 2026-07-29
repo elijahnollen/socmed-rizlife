@@ -95,6 +95,15 @@
     document.head.append(script);
   }
 
+  function loadAccountPersonality() {
+    if (document.querySelector('script[data-rizal-account-personality="true"]')) return;
+    const script = document.createElement("script");
+    script.src = siteAsset("account-personality.js?v=20260730-10");
+    script.defer = true;
+    script.dataset.rizalAccountPersonality = "true";
+    document.head.append(script);
+  }
+
   function fixLocalImagePaths() {
     document.querySelectorAll("img").forEach((image) => {
       const rawSrc = image.getAttribute("src") || "";
@@ -186,6 +195,7 @@
   function initialize() {
     injectImageStyles();
     loadLinkedInLanguages();
+    loadAccountPersonality();
     refreshImages();
     [100,350,800,1500].forEach((delay) => setTimeout(refreshImages, delay));
 
