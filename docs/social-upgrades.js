@@ -115,9 +115,9 @@
   function fixCovers() {
     const facebookCover = document.querySelector(".fb-cover");
     if (facebookCover) {
-      facebookCover.style.setProperty("background-image", `url("${asset("images/ilustrados-1890.jpg")}")`, "important");
+      facebookCover.style.setProperty("background-image", `url("${asset("images/rizal-facebook-cover.jpg")}")`, "important");
       facebookCover.style.setProperty("background-size", "cover", "important");
-      facebookCover.style.setProperty("background-position", "center 30%", "important");
+      facebookCover.style.setProperty("background-position", "center center", "important");
       facebookCover.querySelector("img")?.style.setProperty("display", "none", "important");
     }
 

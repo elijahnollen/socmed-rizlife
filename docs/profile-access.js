@@ -77,7 +77,7 @@
     style.id = "rizal-runtime-styles";
     style.textContent = `
       .fb-cover::before{display:none!important;content:none!important}
-      .fb-cover{height:348px!important;background:#18191a!important;isolation:auto!important}
+      .fb-cover{height:348px!important;background-color:#18191a!important;isolation:auto!important}
       .fb-cover>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 26%!important}
       .fb-cover::after{background:linear-gradient(to bottom,transparent 68%,rgba(0,0,0,.38))!important}
       .native-platform-switch{display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:0 12px;border-radius:7px;font-weight:700;white-space:nowrap}
@@ -163,17 +163,8 @@
 
   function fixFacebookCover() {
     const cover = document.querySelector(".fb-cover");
-    const image = cover?.querySelector("img");
-    if (!cover || !image) return;
+    if (!cover) return;
     cover.style.height = window.innerWidth <= 640 ? "220px" : window.innerWidth <= 900 ? "300px" : "348px";
-    cover.style.background = "#18191a";
-    image.style.position = "absolute";
-    image.style.inset = "0";
-    image.style.width = "100%";
-    image.style.height = "100%";
-    image.style.maxWidth = "none";
-    image.style.objectFit = "cover";
-    image.style.objectPosition = "center 26%";
   }
 
   function removePresentDayMonument() {

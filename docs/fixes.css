@@ -24,9 +24,9 @@
   height: 348px;
   overflow: hidden;
   background-color: #18191a !important;
-  background-image: url("images/ilustrados-1890.jpg") !important;
+  background-image: url("images/rizal-facebook-cover.jpg") !important;
   background-repeat: no-repeat !important;
-  background-position: center 30% !important;
+  background-position: center center !important;
   background-size: cover !important;
 }
 
@@ -82,14 +82,14 @@
 @media (max-width: 900px) {
   .fb-cover {
     height: 300px;
-    background-position: center 28% !important;
+    background-position: center center !important;
   }
 }
 
 @media (max-width: 640px) {
   .fb-cover {
     height: 220px;
-    background-position: center 25% !important;
+    background-position: center center !important;
   }
 
   .li-profile-photo {
