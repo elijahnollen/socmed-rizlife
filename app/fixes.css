@@ -1,50 +1,76 @@
-/* Targeted corrections for the published Rizal social-profile experience. */
+/* Native-looking corrections for the Facebook and LinkedIn profile mockups. */
 
-/* Show the complete historical group photograph instead of cropping it. */
+/* The two profiles are served as separate page views. Keep the internal
+   React switcher available for routing, but never display it in the UI. */
+.project-switcher,
+.context-ribbon,
+.linkedin-context,
+.photo-choice-card,
+.historical-note,
+.reconstruction-label,
+.source-side,
+.portrait-credits,
+.comment-meta span,
+.li-activity-grid article > span,
+.skill-list article > span,
+.fb-name > p em,
+.li-connections em {
+  display: none !important;
+}
+
+/* Facebook cover: preserve the whole historical photograph while filling
+   Facebook's wide cover area with a soft version of the same image. */
 .fb-cover {
-  background:
-    radial-gradient(circle at center, #535353 0, #252525 58%, #18191a 100%);
+  isolation: isolate;
+  background: #18191a;
+  height: 405px;
+}
+
+.fb-cover::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: -24px;
+  background: url("/images/ilustrados-1890.jpg") center / cover no-repeat;
+  filter: blur(18px) brightness(.5);
+  transform: scale(1.08);
+}
+
+.fb-cover::after {
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent 58%, rgba(0, 0, 0, .55));
 }
 
 .fb-cover > img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
   object-fit: contain !important;
   object-position: center !important;
 }
 
-/* Make the profile selector obvious, keyboard-friendly, and easy to tap. */
-.project-switcher {
-  z-index: 10000 !important;
-  pointer-events: auto;
+.fb-cover > span {
+  display: none !important;
 }
 
-.project-switcher button {
-  position: relative;
-  touch-action: manipulation;
+.fb-cover > button {
+  z-index: 3;
 }
 
-.project-switcher button:focus-visible {
-  outline: 3px solid #fff;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 5px currentColor;
+/* LinkedIn's profile image should read as a clean professional headshot. */
+.li-profile-photo {
+  object-fit: cover !important;
+  object-position: center 14% !important;
+  background: #fff;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .08);
 }
 
-.project-switcher .fb-choice,
-.project-switcher .in-choice {
-  font-size: 0;
-}
-
-.project-switcher .fb-choice::after,
-.project-switcher .in-choice::after {
-  font-size: 13px;
-  line-height: 1.15;
-}
-
-.project-switcher .fb-choice::after {
-  content: "Facebook Profile";
-}
-
-.project-switcher .in-choice::after {
-  content: "LinkedIn Profile";
+.li-me-avatar,
+.li-activity-author .avatar {
+  object-fit: cover !important;
+  object-position: center 14% !important;
 }
 
 /* Historical portraits for Rizal's closest friends and colleagues. */
@@ -106,39 +132,18 @@
   background-position: center 10%;
 }
 
-.portrait-credits {
-  width: min(1030px, calc(100% - 32px));
-  margin: 18px auto 110px;
-  padding: 12px 14px;
-  border: 1px solid #d7d9dd;
-  border-radius: 8px;
-  background: #fff;
-  color: #4d5156;
-  font: 12px/1.5 Arial, Helvetica, sans-serif;
-}
-
-.portrait-credits summary {
-  cursor: pointer;
-  color: #1f5f99;
-  font-weight: 700;
-}
-
-.portrait-credits ul {
-  margin: 10px 0 0;
-  padding-left: 20px;
-}
-
-.portrait-credits a {
-  color: #0a66c2;
+@media (max-width: 900px) {
+  .fb-cover {
+    height: 330px;
+  }
 }
 
 @media (max-width: 640px) {
-  .project-switcher .fb-choice::after,
-  .project-switcher .in-choice::after {
-    font-size: 12px;
+  .fb-cover {
+    height: 230px;
   }
 
-  .portrait-credits {
-    width: calc(100% - 24px);
+  .li-profile-photo {
+    object-position: center 12% !important;
   }
 }
