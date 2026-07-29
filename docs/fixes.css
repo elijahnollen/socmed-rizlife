@@ -16,31 +16,29 @@
   display: none !important;
 }
 
+/* Use the repository image as the cover background. The old img and every
+   overlay are disabled so the cover cannot produce an empty gray section. */
 .fb-cover {
-  isolation: auto;
+  position: relative;
+  isolation: auto !important;
   height: 348px;
-  background: #18191a;
+  overflow: hidden;
+  background-color: #18191a !important;
+  background-image: url("images/ilustrados-1890.jpg") !important;
+  background-repeat: no-repeat !important;
+  background-position: center 30% !important;
+  background-size: cover !important;
 }
 
-.fb-cover::before {
-  content: none !important;
-  display: none !important;
-}
-
+.fb-cover::before,
 .fb-cover::after {
-  z-index: 2;
-  background: linear-gradient(to bottom, transparent 64%, rgba(0, 0, 0, .42));
+  display: none !important;
+  content: none !important;
+  background: none !important;
 }
 
 .fb-cover > img {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover !important;
-  object-position: center 30% !important;
+  display: none !important;
 }
 
 .fb-cover > span {
@@ -48,7 +46,10 @@
 }
 
 .fb-cover > button {
+  position: absolute;
   z-index: 3;
+  right: 30px;
+  bottom: 16px;
 }
 
 .li-profile-photo {
@@ -69,73 +70,26 @@
 .friend-grid .avatar,
 .large-friend-grid .avatar,
 .li-person .avatar {
-  color: transparent !important;
-  background-color: #d8dadf;
+  color: #fff !important;
+  text-indent: 0 !important;
+  background-color: #697386;
+  background-image: none;
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
-  text-indent: -9999px;
-}
-
-.friend-stack .avatar:nth-child(1),
-.friend-grid > div:nth-child(1) .avatar,
-.large-friend-grid > article:nth-child(1) .avatar,
-.li-person:nth-of-type(1) .avatar {
-  background-image: url("https://live.staticflickr.com/495/18483426949_0120712bfa_m.jpg");
-  background-position: center 18%;
-}
-
-.friend-stack .avatar:nth-child(2),
-.friend-grid > div:nth-child(2) .avatar,
-.large-friend-grid > article:nth-child(2) .avatar,
-.li-person:nth-of-type(2) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ec/Ferdinand_Blumentritt_-_btv1b84500221_%281_of_2%29.jpg");
-  background-position: center 15%;
-}
-
-.friend-stack .avatar:nth-child(3),
-.friend-grid > div:nth-child(3) .avatar,
-.large-friend-grid > article:nth-child(3) .avatar,
-.li-person:nth-of-type(3) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cc/Marcelo_Hilario_del_Pilar_y_Gatmait%C3%A1n_%281850-1896%29_portrait.jpg");
-  background-position: center 12%;
-}
-
-.friend-stack .avatar:nth-child(4),
-.friend-grid > div:nth-child(4) .avatar,
-.large-friend-grid > article:nth-child(4) .avatar,
-.li-person:nth-of-type(4) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ec/Mariano_Ponce.jpg");
-  background-position: center 10%;
-}
-
-.friend-stack .avatar:nth-child(5),
-.friend-grid > div:nth-child(5) .avatar,
-.large-friend-grid > article:nth-child(5) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/37/Graciano_lopez_jaena_PG.jpg");
-  background-position: center 12%;
-}
-
-.friend-stack .avatar:nth-child(6),
-.friend-grid > div:nth-child(6) .avatar,
-.large-friend-grid > article:nth-child(6) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/97/M%C3%A1ximo_Viola.jpg");
-  background-position: center 10%;
 }
 
 @media (max-width: 900px) {
   .fb-cover {
     height: 300px;
+    background-position: center 28% !important;
   }
 }
 
 @media (max-width: 640px) {
   .fb-cover {
     height: 220px;
-  }
-
-  .fb-cover > img {
-    object-position: center 28% !important;
+    background-position: center 25% !important;
   }
 
   .li-profile-photo {
