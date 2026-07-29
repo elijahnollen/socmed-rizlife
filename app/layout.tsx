@@ -22,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <script defer src="/account-personality.js" />
+      </body>
     </html>
   );
 }
