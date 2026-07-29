@@ -1,0 +1,144 @@
+/* Targeted corrections for the published Rizal social-profile experience. */
+
+/* Show the complete historical group photograph instead of cropping it. */
+.fb-cover {
+  background:
+    radial-gradient(circle at center, #535353 0, #252525 58%, #18191a 100%);
+}
+
+.fb-cover > img {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* Make the profile selector obvious, keyboard-friendly, and easy to tap. */
+.project-switcher {
+  z-index: 10000 !important;
+  pointer-events: auto;
+}
+
+.project-switcher button {
+  position: relative;
+  touch-action: manipulation;
+}
+
+.project-switcher button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px currentColor;
+}
+
+.project-switcher .fb-choice,
+.project-switcher .in-choice {
+  font-size: 0;
+}
+
+.project-switcher .fb-choice::after,
+.project-switcher .in-choice::after {
+  font-size: 13px;
+  line-height: 1.15;
+}
+
+.project-switcher .fb-choice::after {
+  content: "Facebook Profile";
+}
+
+.project-switcher .in-choice::after {
+  content: "LinkedIn Profile";
+}
+
+/* Historical portraits for Rizal's closest friends and colleagues. */
+.friend-stack .avatar,
+.friend-grid .avatar,
+.large-friend-grid .avatar,
+.li-person .avatar {
+  color: transparent !important;
+  background-color: #d8dadf;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  text-indent: -9999px;
+}
+
+.friend-stack .avatar:nth-child(1),
+.friend-grid > div:nth-child(1) .avatar,
+.large-friend-grid > article:nth-child(1) .avatar,
+.li-person:nth-of-type(1) .avatar {
+  background-image: url("https://live.staticflickr.com/495/18483426949_0120712bfa_m.jpg");
+  background-position: center 18%;
+}
+
+.friend-stack .avatar:nth-child(2),
+.friend-grid > div:nth-child(2) .avatar,
+.large-friend-grid > article:nth-child(2) .avatar,
+.li-person:nth-of-type(2) .avatar {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/0e/Ferdinand_Blumentritt.jpg");
+  background-position: center 15%;
+}
+
+.friend-stack .avatar:nth-child(3),
+.friend-grid > div:nth-child(3) .avatar,
+.large-friend-grid > article:nth-child(3) .avatar,
+.li-person:nth-of-type(3) .avatar {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5f/Marcelo_H._del_Pilar_%28January_1%2C_1890%29.jpg");
+  background-position: center 12%;
+}
+
+.friend-stack .avatar:nth-child(4),
+.friend-grid > div:nth-child(4) .avatar,
+.large-friend-grid > article:nth-child(4) .avatar,
+.li-person:nth-of-type(4) .avatar {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/f/f4/Mariano_Ponce.jpg");
+  background-position: center 10%;
+}
+
+.friend-stack .avatar:nth-child(5),
+.friend-grid > div:nth-child(5) .avatar,
+.large-friend-grid > article:nth-child(5) .avatar {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/1/18/Graciano_L%C3%B3pez_Jaena.jpg");
+  background-position: center 12%;
+}
+
+.friend-stack .avatar:nth-child(6),
+.friend-grid > div:nth-child(6) .avatar,
+.large-friend-grid > article:nth-child(6) .avatar {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/1/17/Dr._Maximo_Viola_y_Sison.jpg");
+  background-position: center 10%;
+}
+
+.portrait-credits {
+  width: min(1030px, calc(100% - 32px));
+  margin: 18px auto 110px;
+  padding: 12px 14px;
+  border: 1px solid #d7d9dd;
+  border-radius: 8px;
+  background: #fff;
+  color: #4d5156;
+  font: 12px/1.5 Arial, Helvetica, sans-serif;
+}
+
+.portrait-credits summary {
+  cursor: pointer;
+  color: #1f5f99;
+  font-weight: 700;
+}
+
+.portrait-credits ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+}
+
+.portrait-credits a {
+  color: #0a66c2;
+}
+
+@media (max-width: 640px) {
+  .project-switcher .fb-choice::after,
+  .project-switcher .in-choice::after {
+    font-size: 12px;
+  }
+
+  .portrait-credits {
+    width: calc(100% - 24px);
+  }
+}
