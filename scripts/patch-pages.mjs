@@ -13,11 +13,11 @@ html = html.replace(/<script defer src="profile-access\.js(?:\?v=[^"]*)?"><\/scr
 html = html.replace(/<script defer src="image-fixes\.js(?:\?v=[^"]*)?"><\/script>/g, "");
 html = html.replace(
   "</head>",
-  '<link rel="stylesheet" href="fixes.css?v=20260729-4"/></head>',
+  '<link rel="stylesheet" href="fixes.css?v=20260729-5"/></head>',
 );
 html = html.replace(
   "</body>",
-  '<script defer src="profile-access.js?v=20260729-4"></script><script defer src="image-fixes.js?v=20260729-4"></script></body>',
+  '<script defer src="profile-access.js?v=20260729-5"></script><script defer src="image-fixes.js?v=20260729-5"></script></body>',
 );
 
 await writeFile(indexPath, html);
