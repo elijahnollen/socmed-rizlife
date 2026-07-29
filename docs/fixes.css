@@ -17,33 +17,30 @@
 }
 
 .fb-cover {
-  isolation: isolate;
+  isolation: auto;
+  height: 348px;
   background: #18191a;
-  height: 405px;
 }
 
 .fb-cover::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  inset: -24px;
-  background: url("images/ilustrados-1890.jpg") center / cover no-repeat;
-  filter: blur(18px) brightness(.5);
-  transform: scale(1.08);
+  content: none !important;
+  display: none !important;
 }
 
 .fb-cover::after {
   z-index: 2;
-  background: linear-gradient(to bottom, transparent 58%, rgba(0, 0, 0, .55));
+  background: linear-gradient(to bottom, transparent 64%, rgba(0, 0, 0, .42));
 }
 
 .fb-cover > img {
   position: relative;
   z-index: 1;
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain !important;
-  object-position: center !important;
+  max-width: none;
+  object-fit: cover !important;
+  object-position: center 30% !important;
 }
 
 .fb-cover > span {
@@ -92,7 +89,7 @@
 .friend-grid > div:nth-child(2) .avatar,
 .large-friend-grid > article:nth-child(2) .avatar,
 .li-person:nth-of-type(2) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/0e/Ferdinand_Blumentritt.jpg");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ec/Ferdinand_Blumentritt_-_btv1b84500221_%281_of_2%29.jpg");
   background-position: center 15%;
 }
 
@@ -100,7 +97,7 @@
 .friend-grid > div:nth-child(3) .avatar,
 .large-friend-grid > article:nth-child(3) .avatar,
 .li-person:nth-of-type(3) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5f/Marcelo_H._del_Pilar_%28January_1%2C_1890%29.jpg");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/cc/Marcelo_Hilario_del_Pilar_y_Gatmait%C3%A1n_%281850-1896%29_portrait.jpg");
   background-position: center 12%;
 }
 
@@ -108,33 +105,37 @@
 .friend-grid > div:nth-child(4) .avatar,
 .large-friend-grid > article:nth-child(4) .avatar,
 .li-person:nth-of-type(4) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/f/f4/Mariano_Ponce.jpg");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ec/Mariano_Ponce.jpg");
   background-position: center 10%;
 }
 
 .friend-stack .avatar:nth-child(5),
 .friend-grid > div:nth-child(5) .avatar,
 .large-friend-grid > article:nth-child(5) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/1/18/Graciano_L%C3%B3pez_Jaena.jpg");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/37/Graciano_lopez_jaena_PG.jpg");
   background-position: center 12%;
 }
 
 .friend-stack .avatar:nth-child(6),
 .friend-grid > div:nth-child(6) .avatar,
 .large-friend-grid > article:nth-child(6) .avatar {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/1/17/Dr._Maximo_Viola_y_Sison.jpg");
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/97/M%C3%A1ximo_Viola.jpg");
   background-position: center 10%;
 }
 
 @media (max-width: 900px) {
   .fb-cover {
-    height: 330px;
+    height: 300px;
   }
 }
 
 @media (max-width: 640px) {
   .fb-cover {
-    height: 230px;
+    height: 220px;
+  }
+
+  .fb-cover > img {
+    object-position: center 28% !important;
   }
 
   .li-profile-photo {
