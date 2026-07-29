@@ -1,5 +1,6 @@
 (() => {
   const siteAsset = (path) => new URL(path.replace(/^\/+/, ""), document.baseURI).href;
+  const LA_LIGA_COVER = "https://upload.wikimedia.org/wikipedia/commons/4/46/Regulations_of_the_La_Liga_Filipina_handwritten_by_Jose_Rizal.jpg";
 
   /* Paciano intentionally uses initials: the previous external image was a
      monument, not a verified portrait. The remaining entries use portrait files. */
@@ -25,6 +26,16 @@
     const style = document.createElement("style");
     style.id = "rizal-image-fix-styles";
     style.textContent = `
+      .facebook-app .fb-cover {
+        background-color:#d7c7aa!important;
+        background-image:url("${LA_LIGA_COVER}")!important;
+        background-repeat:no-repeat!important;
+        background-position:center 36%!important;
+        background-size:cover!important;
+      }
+      .facebook-app .fb-cover::before,
+      .facebook-app .fb-cover::after {display:none!important;content:none!important}
+      .facebook-app .fb-cover>img {display:none!important}
       .friend-stack .avatar,
       .friend-grid .avatar,
       .large-friend-grid .avatar,
@@ -55,6 +66,33 @@
       img.image-loading-fallback{background:#e4e6eb}
     `;
     document.head.append(style);
+  }
+
+  function applyLaLigaCover() {
+    const cover = document.querySelector(".facebook-app .fb-cover");
+    if (!cover) return;
+
+    cover.style.setProperty("background-image", `url("${LA_LIGA_COVER}")`, "important");
+    cover.style.setProperty("background-color", "#d7c7aa", "important");
+    cover.style.setProperty("background-repeat", "no-repeat", "important");
+    cover.style.setProperty("background-position", "center 36%", "important");
+    cover.style.setProperty("background-size", "cover", "important");
+
+    const image = cover.querySelector("img");
+    if (image) {
+      image.src = LA_LIGA_COVER;
+      image.alt = "La Liga Filipina regulations handwritten by José Rizal";
+      image.style.setProperty("display", "none", "important");
+    }
+  }
+
+  function loadLinkedInLanguages() {
+    if (document.querySelector('script[data-rizal-languages="true"]')) return;
+    const script = document.createElement("script");
+    script.src = siteAsset("linkedin-languages.js?v=20260730-9");
+    script.defer = true;
+    script.dataset.rizalLanguages = "true";
+    document.head.append(script);
   }
 
   function fixLocalImagePaths() {
@@ -137,6 +175,7 @@
   }
 
   function refreshImages() {
+    applyLaLigaCover();
     fixLocalImagePaths();
     applyPortraitGroup(".friend-stack .avatar");
     applyPortraitGroup(".friend-grid .avatar");
@@ -146,6 +185,7 @@
 
   function initialize() {
     injectImageStyles();
+    loadLinkedInLanguages();
     refreshImages();
     [100,350,800,1500].forEach((delay) => setTimeout(refreshImages, delay));
 
